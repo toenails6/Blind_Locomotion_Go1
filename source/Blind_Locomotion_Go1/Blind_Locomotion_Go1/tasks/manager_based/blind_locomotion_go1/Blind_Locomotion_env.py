@@ -273,7 +273,7 @@ class CurriculumCfg:
 
 
 @configclass
-class LocomotionVelocityRoughEnvCfg(ManagerBasedRLEnvCfg):
+class BlindLocomotionCfg(ManagerBasedRLEnvCfg):
     """Configuration for the locomotion velocity-tracking environment."""
 
     # Scene settings
