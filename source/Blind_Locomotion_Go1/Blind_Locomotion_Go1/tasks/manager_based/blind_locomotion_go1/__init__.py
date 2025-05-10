@@ -17,7 +17,7 @@ gym.register(
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
-        "env_cfg_entry_point": f"{__name__}.blind_locomotion_go1_env_cfg:BlindLocomotionGo1EnvCfg",
+        "env_cfg_entry_point": f"{__name__}.Blind_Locomotion_env:UnitreeGo1_BlindLocomotionEnvCfg",
         "skrl_cfg_entry_point": f"{agents.__name__}:skrl_ppo_cfg.yaml",
     },
 )
