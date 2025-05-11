@@ -1,1 +1,3 @@
-python .\scripts\skrl\train.py --task Template-Blind-Locomotion-Go1-v0 --num_envs 4096 --video True
+python .\scripts\skrl\train.py --task Template-Blind-Locomotion-Go1-v0 --num_envs 4096 --video 1
+
+python .\scripts\skrl\play.py --task Template-Blind-Locomotion-Go1-v0 --num_envs 128
