@@ -7,7 +7,7 @@ from isaaclab.app import AppLauncher
 # add argparse arguments
 parser = argparse.ArgumentParser(description="Quadruped blind locomotion environment. ")
 parser.add_argument("--task", type=str, default="Template-Blind-Locomotion-Go1-v0", help="Name of the task/environment.")
-parser.add_argument("--num_envs", type=int, default=1024, help="Number of environments to spawn.")
+parser.add_argument("--num_envs", type=int, default=1, help="Number of environments to spawn.")
 
 # Append cli args to app launcher. 
 AppLauncher.add_app_launcher_args(parser)
