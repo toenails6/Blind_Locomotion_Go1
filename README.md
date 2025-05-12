@@ -14,19 +14,19 @@ It is the hopes of this work to imitate the contributions and results of the men
 The training environment is designed to fit most quadrupedal robots, especially those documented in Isaac Lab's assets. 
 The currently used robot is Unitree Go1. 
 
-Due to technical limitations, not all details of this work can fully match the original work, as Isaac Lab and Raisim offer different terrain generators, and other functions etc. 
+Due to technical limitations, not all details of this work can fully match the original work, as Isaac Lab and Raisim offer different terrain generators and other functions etc. 
 In terms of algorithms, this work will use the SKRL library (which directly couples with Isaac Lab), and Proximal-Policy-Optimization. 
 Despite details, the ultimate goal is to recreate an exteroceptive privileged-information trained RL teacher network, to then train a subsequent student network that relies solely on proprioceptive information. 
 
 ## Terrain types
 The original paper used three terrain types, including hills, stairs, and boxes. 
 Isaac Lab does not explicitly offer terrains of hill type, and stairs are generated in the form of symmetrical pyramids instead of mono-direction ascents. 
-Here, a combination of random uniform terrain, slopes and pyramids serve as a good alternative, containing various similar terrain features. Check details in `source/
+Here, a combination of random uniform terrain, slopes and pyramids serve as a good alternative, containing various similar terrain features. Check details in: `source/
 Blind_Locomotion_Go1/
 Blind_Locomotion_Go1/
 tasks/manager_based/
 blind_locomotion_go1/
-Blind_Locomotion_Terrain.py`: 
+Blind_Locomotion_Terrain.py`
 
 ![Terrains Preview](Images/Terrains_Preview.png)
 
