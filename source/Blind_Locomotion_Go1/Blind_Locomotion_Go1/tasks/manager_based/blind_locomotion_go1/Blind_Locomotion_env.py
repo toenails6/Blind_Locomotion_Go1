@@ -19,7 +19,7 @@ import isaaclab_tasks.manager_based.locomotion.velocity.mdp as mdp
 from isaaclab_assets.robots.unitree import UNITREE_GO1_CFG
 
 
-# Scene definition
+# Import scene definition
 from Blind_Locomotion_Go1.tasks.manager_based.blind_locomotion_go1.Blind_Locomotion_Scene import Blind_Locomotion_sceneCfg
 
 
@@ -266,18 +266,21 @@ class UnitreeGo1_BlindLocomotionEnvCfg(BlindLocomotionCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()
-
+        # Assign Unitree Go1 Robot assets. 
         self.scene.robot = UNITREE_GO1_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
+
+        # Correct the primitive name for the height scanner. 
         self.scene.height_scanner.prim_path = "{ENV_REGEX_NS}/Robot/trunk"
-        # scale down the terrains because the robot is small
+
+        # Scale down terrains according to robot scale. 
         self.scene.terrain.terrain_generator.sub_terrains["boxes"].grid_height_range = (0.025, 0.1)
         self.scene.terrain.terrain_generator.sub_terrains["random_rough"].noise_range = (0.01, 0.06)
         self.scene.terrain.terrain_generator.sub_terrains["random_rough"].noise_step = 0.01
 
-        # reduce action scale
+        # Reduce action scale. 
         self.actions.joint_pos.scale = 0.25
 
-        # event
+        # Modify events. 
         self.events.push_robot = None
         self.events.add_base_mass.params["mass_distribution_params"] = (-1.0, 3.0)
         self.events.add_base_mass.params["asset_cfg"].body_names = "trunk"
@@ -295,7 +298,7 @@ class UnitreeGo1_BlindLocomotionEnvCfg(BlindLocomotionCfg):
             },
         }
 
-        # rewards
+        # Modify rewards and set reward weights. 
         self.rewards.feet_air_time.params["sensor_cfg"].body_names = ".*_foot"
         self.rewards.feet_air_time.weight = 0.01
         self.rewards.undesired_contacts = None
@@ -304,5 +307,5 @@ class UnitreeGo1_BlindLocomotionEnvCfg(BlindLocomotionCfg):
         self.rewards.track_ang_vel_z_exp.weight = 0.75
         self.rewards.dof_acc_l2.weight = -2.5e-7
 
-        # terminations
+        # Correct the primitive name for base contact termination definition. 
         self.terminations.base_contact.params["sensor_cfg"].body_names = "trunk"

@@ -7,21 +7,18 @@ from isaaclab.sensors import ContactSensorCfg, RayCasterCfg, patterns
 from isaaclab.terrains import TerrainImporterCfg
 from isaaclab.utils import configclass
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR, ISAACLAB_NUCLEUS_DIR
+# from isaaclab.sensors import ImuCfg
 
-##
-# Pre-defined configs
-##
-from isaaclab.terrains.config.rough import ROUGH_TERRAINS_CFG  # isort: skip
+# Import terrain generator. 
+from Blind_Locomotion_Go1.tasks.manager_based.blind_locomotion_go1.Blind_Locomotion_Terrain import Blind_Locomotion_Terrains_config
 
 @configclass
 class Blind_Locomotion_sceneCfg(InteractiveSceneCfg):
-    """Configuration for the terrain scene with a legged robot."""
-
-    # ground terrain
+    # Terrain configurations. 
     terrain = TerrainImporterCfg(
         prim_path="/World/ground",
         terrain_type="generator",
-        terrain_generator=ROUGH_TERRAINS_CFG,
+        terrain_generator=Blind_Locomotion_Terrains_config,
         max_init_terrain_level=5,
         collision_group=-1,
         physics_material=sim_utils.RigidBodyMaterialCfg(
@@ -37,9 +34,15 @@ class Blind_Locomotion_sceneCfg(InteractiveSceneCfg):
         ),
         debug_vis=False,
     )
-    # robots
+
+    # Specific robot will be left abstracted. 
     robot: ArticulationCfg = MISSING
+
     # sensors
+    # Note here that the primitive base is only a descriptive name. 
+    # Different robots have different names for the base. 
+    # Unitree Go1 has it as: trunk. 
+    # Remember to modify this in the robot specific environment or scene cfg. 
     height_scanner = RayCasterCfg(
         prim_path="{ENV_REGEX_NS}/Robot/base",
         offset=RayCasterCfg.OffsetCfg(pos=(0.0, 0.0, 20.0)),
@@ -49,6 +52,16 @@ class Blind_Locomotion_sceneCfg(InteractiveSceneCfg):
         mesh_prim_paths=["/World/ground"],
     )
     contact_forces = ContactSensorCfg(prim_path="{ENV_REGEX_NS}/Robot/.*", history_length=3, track_air_time=True)
+    # normal_scanner = RayCasterCfg(
+    #     prim_path="{ENV_REGEX_NS}/Robot/.*_foot",
+    #     attach_yaw_only=True,
+    #     pattern_cfg=patterns.GridPatternCfg(resolution=0.04, size=[0.08, 0.08]),
+    #     max_distance=1.0,
+    #     debug_vis=True,
+    #     mesh_prim_paths=["/World/ground"],
+    # )
+    # imu_Feet = ImuCfg(prim_path="{ENV_REGEX_NS}/Robot/.*_foot", debug_vis=True)
+
     # lights
     sky_light = AssetBaseCfg(
         prim_path="/World/skyLight",
