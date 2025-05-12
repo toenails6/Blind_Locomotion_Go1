@@ -21,7 +21,12 @@ Despite details, the ultimate goal is to recreate an exteroceptive privileged-in
 ## Terrain types
 The original paper used three terrain types, including hills, stairs, and boxes. 
 Isaac Lab does not explicitly offer terrains of hill type, and stairs are generated in the form of symmetrical pyramids instead of mono-direction ascents. 
-Here, a combination of random uniform terrain, slopes and pyramids serve as a good alternative, containing various similar terrain features.
+Here, a combination of random uniform terrain, slopes and pyramids serve as a good alternative, containing various similar terrain features. Check details in `source/
+Blind_Locomotion_Go1/
+Blind_Locomotion_Go1/
+tasks/manager_based/
+blind_locomotion_go1/
+Blind_Locomotion_Terrain.py`: 
 
 ![Terrains Preview](Images/Terrains_Preview.png)
 
@@ -130,20 +135,25 @@ This is yet to be explicitly implemented here due to action set differences.
 Note that reward weights are specified in the robot specific training environment configuration: `UnitreeGo1_BlindLocomotionEnvCfg`. 
 
 ### Events
-Check details in `source/Blind_Locomotion_Go1/Blind_Locomotion_Go1/tasks/manager_based/blind_locomotion_go1/Blind_Locomotion_env.py`: 
+Check details in `source/
+Blind_Locomotion_Go1/
+Blind_Locomotion_Go1/
+tasks/manager_based/
+blind_locomotion_go1/
+Blind_Locomotion_env.py`: 
 ```
 @configclass
 class EventCfg:
     """Configuration for events."""
     ...
 ```
-- The generated terrain is a single entity for all robots in the training episode. And so has maximum friction settings. Frictions settings will differ between the generated robots. 
+- The generated terrain is a single entity for all robots in the training episode. And so has maximum friction settings of 1. Frictions settings will differ between the generated robots. 
 
 - Each time robots are regenerated, randomized physics settings, such as friction coefficients, masses, and inertias will be assigned. 
 
 - Robots currently have external disturbance terms, such as external torque and forces, but are set to 0. Further tuning is needed. 
 
-- Robots are generated in random positions and initial states in their own terrain designed by the Isaac Lab curriculum manager. 
+- Robots are generated in random positions and initial states in their own terrain designated by the Isaac Lab curriculum manager. 
 
 Events are context dependent and are not compared with the original work. 
 
@@ -157,7 +167,10 @@ class TerminationsCfg:
     time_out = DoneTerm(func=mdp.time_out, time_out=True)
     base_contact = DoneTerm(
         func=mdp.illegal_contact,
-        params={"sensor_cfg": SceneEntityCfg("contact_forces", body_names="base"), "threshold": 1.0},
+        params={
+            "sensor_cfg": SceneEntityCfg(
+                "contact_forces", body_names="base"), 
+            "threshold": 1.0},
     )
 ```
 - Robot terminates after MDP iteration timeout. 
@@ -181,10 +194,14 @@ class CurriculumCfg:
 ## Coding Caveats
 - The `BlindLocomotionCfg` class is an overarching MDP definition class that defines abstracted information regarding commands, observations, and so on. 
 
-- Specific primitive names differ from robot to robot, and so primitive paths that define some of the terms are different. These are modified in a robot specific environment class, such as `UnitreeGo1_BlindLocomotionEnvCfg`
-- Refer to Isaac Lab official documentation `ISAACLAB.md` for installation of this repository. 
+- All corresponding sensors are added in the scene configuration file, check details in:  
+`.../blind_locomotion_go1/Blind_Locomotion_Scene.py`
 
-- Isaac Lab official documentation: https://isaac-sim.github.io/IsaacLab/main/index.html
+- Specific primitive names differ from robot to robot, and so primitive paths that define some of the terms are different. These are modified in a robot specific environment class, such as `UnitreeGo1_BlindLocomotionEnvCfg`
+- Refer to Isaac Lab official documentation and/or `ISAACLAB.md` for installation of this repository. 
+
+- Isaac Lab official documentation:  
+https://isaac-sim.github.io/IsaacLab/main/index.html
 
 ## Current status and Work in Progress
 The current teacher network is trainable and functional, but can still be modified and tuned to be more closer to the teacher network in the original work. 
