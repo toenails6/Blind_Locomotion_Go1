@@ -7,9 +7,8 @@ from isaaclab.sensors import ContactSensorCfg, RayCasterCfg, patterns
 from isaaclab.terrains import TerrainImporterCfg
 from isaaclab.utils import configclass
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR, ISAACLAB_NUCLEUS_DIR
-# from isaaclab.sensors import ImuCfg
 
-# Import terrain generator. 
+# Import terrain generator configurations. 
 from Blind_Locomotion_Go1.tasks.manager_based.blind_locomotion_go1.Blind_Locomotion_Terrain import Blind_Locomotion_Terrains_config
 
 @configclass
@@ -38,7 +37,7 @@ class Blind_Locomotion_sceneCfg(InteractiveSceneCfg):
     # Specific robot will be left abstracted. 
     robot: ArticulationCfg = MISSING
 
-    # sensors
+    # Sensors.
     # Note here that the primitive base is only a descriptive name. 
     # Different robots have different names for the base. 
     # Unitree Go1 has it as: trunk. 
@@ -52,17 +51,40 @@ class Blind_Locomotion_sceneCfg(InteractiveSceneCfg):
         mesh_prim_paths=["/World/ground"],
     )
     contact_forces = ContactSensorCfg(prim_path="{ENV_REGEX_NS}/Robot/.*", history_length=3, track_air_time=True)
-    # normal_scanner = RayCasterCfg(
-    #     prim_path="{ENV_REGEX_NS}/Robot/.*_foot",
-    #     attach_yaw_only=True,
-    #     pattern_cfg=patterns.GridPatternCfg(resolution=0.04, size=[0.08, 0.08]),
-    #     max_distance=1.0,
-    #     debug_vis=True,
-    #     mesh_prim_paths=["/World/ground"],
-    # )
-    # imu_Feet = ImuCfg(prim_path="{ENV_REGEX_NS}/Robot/.*_foot", debug_vis=True)
+    front_left_ray = RayCasterCfg(
+        prim_path="{ENV_REGEX_NS}/Robot/FL_foot",
+        attach_yaw_only=True,
+        pattern_cfg=patterns.GridPatternCfg(resolution=0.04, size=[0.08, 0.08]),
+        max_distance=1.0,
+        debug_vis=True,
+        mesh_prim_paths=["/World/ground"],
+    )
+    front_right_ray = RayCasterCfg(
+        prim_path="{ENV_REGEX_NS}/Robot/FR_foot",
+        attach_yaw_only=True,
+        pattern_cfg=patterns.GridPatternCfg(resolution=0.04, size=[0.08, 0.08]),
+        max_distance=1.0,
+        debug_vis=True,
+        mesh_prim_paths=["/World/ground"],
+    )
+    rear_left_ray = RayCasterCfg(
+        prim_path="{ENV_REGEX_NS}/Robot/RL_foot",
+        attach_yaw_only=True,
+        pattern_cfg=patterns.GridPatternCfg(resolution=0.04, size=[0.08, 0.08]),
+        max_distance=1.0,
+        debug_vis=True,
+        mesh_prim_paths=["/World/ground"],
+    )
+    rear_right_ray = RayCasterCfg(
+        prim_path="{ENV_REGEX_NS}/Robot/RR_foot",
+        attach_yaw_only=True,
+        pattern_cfg=patterns.GridPatternCfg(resolution=0.04, size=[0.08, 0.08]),
+        max_distance=1.0,
+        debug_vis=True,
+        mesh_prim_paths=["/World/ground"],
+    )
 
-    # lights
+    # Lighting. 
     sky_light = AssetBaseCfg(
         prim_path="/World/skyLight",
         spawn=sim_utils.DomeLightCfg(
