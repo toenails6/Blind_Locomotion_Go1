@@ -198,7 +198,8 @@ class CurriculumCfg:
 `.../blind_locomotion_go1/Blind_Locomotion_Scene.py`
 
 - Specific primitive names differ from robot to robot, and so primitive paths that define some of the terms are different. These are modified in a robot specific environment class, such as `UnitreeGo1_BlindLocomotionEnvCfg`
-- Refer to Isaac Lab official documentation and/or `ISAACLAB.md` for installation of this repository. 
+- Refer to Isaac Lab official documentation and/or `ISAACLAB.md` for installation of this repository.  
+[Setup Guide](ISAACLAB.md)
 
 - Isaac Lab official documentation:  
 https://isaac-sim.github.io/IsaacLab/main/index.html
