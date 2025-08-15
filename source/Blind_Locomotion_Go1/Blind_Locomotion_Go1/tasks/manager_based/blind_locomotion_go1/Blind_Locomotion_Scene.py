@@ -45,7 +45,7 @@ class Blind_Locomotion_sceneCfg(InteractiveSceneCfg):
     height_scanner = RayCasterCfg(
         prim_path="{ENV_REGEX_NS}/Robot/base",
         offset=RayCasterCfg.OffsetCfg(pos=(0.0, 0.0, 20.0)),
-        attach_yaw_only=True,
+        ray_alignment="yaw",
         pattern_cfg=patterns.GridPatternCfg(resolution=0.1, size=[1.6, 1.0]),
         debug_vis=False,
         mesh_prim_paths=["/World/ground"],
@@ -53,7 +53,7 @@ class Blind_Locomotion_sceneCfg(InteractiveSceneCfg):
     contact_forces = ContactSensorCfg(prim_path="{ENV_REGEX_NS}/Robot/.*", history_length=3, track_air_time=True)
     front_left_ray = RayCasterCfg(
         prim_path="{ENV_REGEX_NS}/Robot/FL_foot",
-        attach_yaw_only=True,
+        ray_alignment="yaw",
         pattern_cfg=patterns.GridPatternCfg(resolution=0.04, size=[0.08, 0.08]),
         max_distance=1.0,
         debug_vis=True,
@@ -61,7 +61,7 @@ class Blind_Locomotion_sceneCfg(InteractiveSceneCfg):
     )
     front_right_ray = RayCasterCfg(
         prim_path="{ENV_REGEX_NS}/Robot/FR_foot",
-        attach_yaw_only=True,
+        ray_alignment="yaw",
         pattern_cfg=patterns.GridPatternCfg(resolution=0.04, size=[0.08, 0.08]),
         max_distance=1.0,
         debug_vis=True,
@@ -69,7 +69,7 @@ class Blind_Locomotion_sceneCfg(InteractiveSceneCfg):
     )
     rear_left_ray = RayCasterCfg(
         prim_path="{ENV_REGEX_NS}/Robot/RL_foot",
-        attach_yaw_only=True,
+        ray_alignment="yaw",
         pattern_cfg=patterns.GridPatternCfg(resolution=0.04, size=[0.08, 0.08]),
         max_distance=1.0,
         debug_vis=True,
@@ -77,7 +77,7 @@ class Blind_Locomotion_sceneCfg(InteractiveSceneCfg):
     )
     rear_right_ray = RayCasterCfg(
         prim_path="{ENV_REGEX_NS}/Robot/RR_foot",
-        attach_yaw_only=True,
+        ray_alignment="yaw",
         pattern_cfg=patterns.GridPatternCfg(resolution=0.04, size=[0.08, 0.08]),
         max_distance=1.0,
         debug_vis=True,
