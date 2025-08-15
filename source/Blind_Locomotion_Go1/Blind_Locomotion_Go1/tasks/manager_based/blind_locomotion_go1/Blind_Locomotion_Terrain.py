@@ -1,7 +1,7 @@
 # Reference Isaac Lab ROUGH_TERRAINS_CFG. 
 import isaaclab.terrains as terrain_gen
 
-from isaaclab.terrains.terrain_generator import TerrainGeneratorCfg
+from isaaclab.terrains.terrain_generator_cfg import TerrainGeneratorCfg
 
 Blind_Locomotion_Terrains_config = TerrainGeneratorCfg(
     size=(8.0, 8.0),
