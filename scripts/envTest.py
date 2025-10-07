@@ -59,6 +59,10 @@ def main(env_cfg: ManagerBasedRLEnvCfg, agent_cfg: dict):
             # Sample random actions. 
             actions = 2 * torch.rand(env.action_space.shape) - 1
 
+            # Example from cartpole to print observations.
+            # print current orientation of pole
+            # print("[Env 0]: Pole joint: ", obs["policy"][0][1].item())
+            
             # Step the environment. 
             obs, rew, terminated, truncated, info = env.step(actions)
 
