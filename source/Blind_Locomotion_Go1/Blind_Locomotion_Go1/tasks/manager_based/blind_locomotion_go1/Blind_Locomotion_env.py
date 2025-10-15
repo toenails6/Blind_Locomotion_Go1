@@ -22,7 +22,7 @@ from Blind_Locomotion_Go1.tasks.manager_based.blind_locomotion_go1.Blind_Locomot
 ##
 # MDP settings
 ##
-
+historyLength = 100
 
 @configclass
 class CommandsCfg:
@@ -78,6 +78,80 @@ class ObservationsCfg:
         def __post_init__(self):
             self.enable_corruption = True
             self.concatenate_terms = True
+
+    @configclass
+    class ProprioceptiveGroup(ObsGroup):
+        """Proprioceptive observations group. """
+
+        # Observation terms (order preserved). 
+        velocity_commands = ObsTerm(
+            func=mdp.generated_commands, 
+            params={"command_name": "base_velocity"},
+            history_length=historyLength,
+        )
+        projected_gravity = ObsTerm(
+            func=mdp.projected_gravity,
+            noise=Unoise(n_min=-0.05, n_max=0.05),
+            history_length=historyLength,
+        )
+        base_lin_vel = ObsTerm(
+            func=mdp.base_lin_vel, 
+            noise=Unoise(n_min=-0.1, n_max=0.1),
+            history_length=historyLength,
+        )
+        base_ang_vel = ObsTerm(
+            func=mdp.base_ang_vel, 
+            noise=Unoise(n_min=-0.2, n_max=0.2),
+            history_length=historyLength,
+        )
+        joint_pos = ObsTerm(
+            func=mdp.joint_pos_rel, 
+            noise=Unoise(n_min=-0.01, n_max=0.01),
+            history_length=historyLength,
+        )
+        joint_vel = ObsTerm(
+            func=mdp.joint_vel_rel, 
+            noise=Unoise(n_min=-1.5, n_max=1.5),
+            history_length=historyLength,
+        )
+        actions = ObsTerm(
+            func=mdp.last_action,
+            history_length=historyLength,
+        )
+
+        def __post_init__(self):
+            self.enable_corruption = True
+            self.concatenate_terms = True
+
+    @configclass
+    class ExteroceptiveGroup(ObsGroup):
+        """Exteroceptive observations group. """
+
+        # Observation terms (order preserved). 
+        front_left_height_scan = ObsTerm(
+            func=mdp.height_scan,
+            params={"sensor_cfg": SceneEntityCfg("front_left_ray")},
+            noise=Unoise(n_min=-0.01, n_max=0.01),
+            clip=(-1.0, 1.0),
+        )
+        front_right_height_scan = ObsTerm(
+            func=mdp.height_scan,
+            params={"sensor_cfg": SceneEntityCfg("front_right_ray")},
+            noise=Unoise(n_min=-0.01, n_max=0.01),
+            clip=(-1.0, 1.0),
+        )
+        rear_left_height_scan = ObsTerm(
+            func=mdp.height_scan,
+            params={"sensor_cfg": SceneEntityCfg("rear_left_ray")},
+            noise=Unoise(n_min=-0.01, n_max=0.01),
+            clip=(-1.0, 1.0),
+        )
+        rear_right_height_scan = ObsTerm(
+            func=mdp.height_scan,
+            params={"sensor_cfg": SceneEntityCfg("rear_right_ray")},
+            noise=Unoise(n_min=-0.01, n_max=0.01),
+            clip=(-1.0, 1.0),
+        )
 
     # observation groups
     policy: PolicyCfg = PolicyCfg()

@@ -14,8 +14,12 @@ class UnitreeGo1_BlindLocomotionEnvCfg(BlindLocomotionCfg):
         # Assign Unitree Go1 Robot assets. 
         self.scene.robot = UNITREE_GO1_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
 
-        # Correct the primitive name for the height scanner. 
+        # Correct the primitive name for the ray-casters. 
         self.scene.height_scanner.prim_path = "{ENV_REGEX_NS}/Robot/trunk"
+        self.scene.rear_left_ray.prim_path = "{ENV_REGEX_NS}/Robot/RL_foot"
+        self.scene.rear_right_ray.prim_path = "{ENV_REGEX_NS}/Robot/RR_foot"
+        self.scene.front_left_ray.prim_path = "{ENV_REGEX_NS}/Robot/FL_foot"
+        self.scene.front_right_ray.prim_path = "{ENV_REGEX_NS}/Robot/FR_foot"
 
         # Scale down terrains according to robot scale. 
         self.scene.terrain.terrain_generator.sub_terrains["boxes"].grid_height_range = (0.025, 0.1)
