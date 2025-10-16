@@ -81,7 +81,7 @@ class ObservationsCfg:
 
     @configclass
     class ProprioceptiveGroup(ObsGroup):
-        """Proprioceptive observations group. """
+        """Definition for proprioceptive observations group. """
 
         # Observation terms (order preserved). 
         velocity_commands = ObsTerm(
@@ -125,7 +125,7 @@ class ObservationsCfg:
 
     @configclass
     class ExteroceptiveGroup(ObsGroup):
-        """Exteroceptive observations group. """
+        """Definition for exteroceptive observations group. """
 
         # Observation terms (order preserved). 
         front_left_height_scan = ObsTerm(
